@@ -53,6 +53,9 @@ class SauceNaoResults:
         # Other
         return GenericSource(header, data)
 
+    def __getitem__(self, item):
+        return self.results[item]
+
     def __len__(self):
         return len(self.results)
 
