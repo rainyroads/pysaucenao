@@ -76,7 +76,7 @@ If you are performing lots of API queries, you will eventually need to sign up a
 You can register for an account on [SauceNAO's website](https://saucenao.com/user.php)
 
 ## Error handling
-The SauceNao class will throw in exception if any of the following occur:
+The SauceNao class will throw an exception if any of the following occur:
 * You have exceeded your 30-second search query limit (ShortLimitReachedException)
 * You have exceeded your 24-hour search query limit (DailyLimitReachedException)
 * You attempted to upload a file larger than SauceNAO allows (FileSizeLimitException)
