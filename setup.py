@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 from os import path
 
 # read the contents of your README file
