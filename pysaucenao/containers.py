@@ -181,10 +181,11 @@ class VideoSource(GenericSource):
     """
 
     def __init__(self, header: dict, data: dict):
-        super().__init__(header, data)
-
         self.episode:   typing.Optional[str] = None
         self.timestamp: typing.Optional[str] = None
+        self.year:      typing.Optional[str] = None
+
+        super().__init__(header, data)
 
     @property
     def type(self):
@@ -193,9 +194,11 @@ class VideoSource(GenericSource):
     def _parse_data(self, data: dict):
         super()._parse_data(data)
         if 'part' in data:
-            self.episode = data['part']
+            self.episode = int(data['part'])
         if 'est_time' in data:
             self.timestamp = data['est_time']
+        if 'year' in data:
+            self.year = int(data['year'])
 
     def __repr__(self):
         rep = reprlib.Repr()

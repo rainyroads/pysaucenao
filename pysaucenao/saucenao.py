@@ -12,6 +12,7 @@ class SauceNaoResults:
     """
     SauceNao results container
     """
+
     def __init__(self, response: dict, min_similarity: typing.Optional[float] = None):
         header, results = response['header'], response['results']
         self.user_id: str               = header['user_id']
