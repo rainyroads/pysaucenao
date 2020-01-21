@@ -69,3 +69,18 @@ if isinstance(results[0], VideoSource):
     results[0].year       # '2017'
     results[0].timestamp  # '00:07:53 / 00:23:40'
 ```
+
+## Registering for an API key
+If you are performing lots of API queries, you will eventually need to sign up and register for an API key (and possibly upgrade your account for very large request volumes)
+
+You can register for an account on [SauceNAO's website](https://saucenao.com/user.php)
+
+## Error handling
+The SauceNao class will throw in exception if any of the following occur:
+* You have exceeded your 30-second search query limit (ShortLimitReachedException)
+* You have exceeded your 24-hour search query limit (DailyLimitReachedException)
+* You attempted to upload a file larger than SauceNAO allows (FileSizeLimitException)
+* You provided an invalid API key (InvalidOrWrongApiKeyException)
+* Any other unknown error occurred / service may be down (UnknownStatusCodeException)
+
+All of these exceptions extend a base SauceNaoException class for easy catching and handling.
