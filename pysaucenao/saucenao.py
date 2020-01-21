@@ -3,6 +3,7 @@ import logging
 from typing import *
 
 from pysaucenao.errors import *
+from pysaucenao.containers import *
 
 import aiohttp
 
@@ -46,7 +47,12 @@ class SauceNAO:
             status_code, response = await self._fetch(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-        return response
+
+        results = []
+        for result in response['results']:
+            results.append(self._process_response(result))
+
+        return results
 
     # noinspection PyTypeChecker
     async def from_file(self, fp: str):
@@ -61,7 +67,33 @@ class SauceNAO:
                 status_code, response = await self._post(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-        return response
+
+        results = []
+        for result in response['results']:
+            results.append(self._process_response(result))
+
+        return results
+
+    def _process_response(self, response: dict):
+        """
+        Parse json response into an applicable container object
+        """
+        header, data = response['header'], response['data']
+
+        # Pixiv
+        if header['index_id'] in (5, 6):
+            return PixivSource(header, data)
+
+        # Booru
+        if header['index_id'] in [9, 25, 26, 29]:
+            return BooruSource(header, data)
+
+        # Video
+        if header['index_id'] in [21, 22, 23, 24]:
+            return VideoSource(header, data)
+
+        # Other
+        return GenericSource(header, data)
 
     def _verify_request(self, status_code: int, data: dict):
         """
