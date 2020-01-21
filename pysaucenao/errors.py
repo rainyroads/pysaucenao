@@ -1,22 +1,22 @@
-class SauceNAOException(Exception):
+class SauceNaoException(Exception):
     pass
 
 
-class ShortLimitReachedException(SauceNAOException):
+class ShortLimitReachedException(SauceNaoException):
     pass
 
 
-class DailyLimitReachedException(SauceNAOException):
+class DailyLimitReachedException(SauceNaoException):
     pass
 
 
-class InvalidOrWrongApiKeyException(SauceNAOException):
+class InvalidOrWrongApiKeyException(SauceNaoException):
     pass
 
 
-class FileSizeLimitException(SauceNAOException):
+class FileSizeLimitException(SauceNaoException):
     pass
 
 
-class UnknownStatusCodeException(SauceNAOException):
+class UnknownStatusCodeException(SauceNaoException):
     pass
