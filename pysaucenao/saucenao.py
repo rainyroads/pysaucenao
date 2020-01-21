@@ -12,8 +12,7 @@ class SauceNaoResults:
     """
     SauceNao results container
     """
-
-    def __init__(self, response: dict):
+    def __init__(self, response: dict, min_similarity: typing.Optional[float] = None):
         header, results = response['header'], response['results']
         self.user_id: str               = header['user_id']
         self.account_type: str          = header['account_type']
@@ -28,6 +27,8 @@ class SauceNaoResults:
 
         self.results: typing.List[GenericSource] = []
         for result in results:
+            if min_similarity and float(result['header']['similarity']) < min_similarity:
+                continue
             self.results.append(self._process_result(result))
 
     def _process_result(self, result):
@@ -69,6 +70,7 @@ class SauceNao:
                  db_mask_disable: Optional[int] = None,
                  db: int = 999,
                  results_limit: int = 6,
+                 min_similarity: float = 65.0,
                  test_mode: int = 0,
                  loop: Optional[asyncio.AbstractEventLoop] = None) -> None:
 
@@ -85,6 +87,7 @@ class SauceNao:
         params['numres'] = str(results_limit)
         self.params = params
 
+        self._min_similarity = min_similarity
         self._loop = loop
         self._log = logging.getLogger(__name__)
 
@@ -99,7 +102,7 @@ class SauceNao:
             status_code, response = await self._fetch(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-        return SauceNaoResults(response)
+        return SauceNaoResults(response, self._min_similarity)
 
     # noinspection PyTypeChecker
     async def from_file(self, fp: str):
@@ -114,7 +117,7 @@ class SauceNao:
                 status_code, response = await self._post(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-        return SauceNaoResults(response)
+        return SauceNaoResults(response, self._min_similarity)
 
     def _verify_request(self, status_code: int, data: dict):
         """
