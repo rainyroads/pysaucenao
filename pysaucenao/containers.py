@@ -1,3 +1,4 @@
+import reprlib
 import typing
 
 TYPE_GENERIC    = 'generic'
@@ -61,6 +62,9 @@ class GenericSource:
         self.index_id:      typing.Optional[int] = None
         self.index_name:    typing.Optional[str] = None
 
+        self._parse_data(data)
+        self._parse_header(header)
+
     @property
     def type(self):
         return TYPE_GENERIC
@@ -116,6 +120,10 @@ class GenericSource:
         if 'ext_urls' in data:
             self.url = data['ext_urls'][0]
 
+    def __repr__(self):
+        rep = reprlib.Repr()
+        return f"<GenericSource(title={rep.repr(self.title)}, author={rep.repr(self.author_name)}, source='{self.index}')>"
+
 
 class PixivSource(GenericSource):
     """
@@ -132,6 +140,10 @@ class PixivSource(GenericSource):
     def _parse_data(self, data: dict):
         super()._parse_data(data)
         self.author_url = f"https://www.pixiv.net/member.php?id={data['member_id']}"
+
+    def __repr__(self):
+        rep = reprlib.Repr()
+        return f"<PixivSource(title={rep.repr(self.title)}, author={rep.repr(self.author_name)}, pixiv_id={rep.repr(self.data['member_id'])})>"
 
 
 class BooruSource(GenericSource):
@@ -157,6 +169,10 @@ class BooruSource(GenericSource):
     def type(self):
         return TYPE_BOORU
 
+    def __repr__(self):
+        rep = reprlib.Repr()
+        return f"<GenericSource(title={rep.repr(self.title)}, author={rep.repr(self.author_name)}, source='{self.index}')>"
+
 
 class VideoSource(GenericSource):
     """
@@ -180,3 +196,7 @@ class VideoSource(GenericSource):
             self.episode = data['part']
         if 'est_time' in data:
             self.timestamp = data['est_time']
+
+    def __repr__(self):
+        rep = reprlib.Repr()
+        return f"<VideoSource(title={rep.repr(self.title)}, episode={self.episode}, source='{self.index}')>"

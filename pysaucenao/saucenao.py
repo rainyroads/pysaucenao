@@ -2,13 +2,65 @@ import asyncio
 import logging
 from typing import *
 
-from pysaucenao.errors import *
-from pysaucenao.containers import *
-
 import aiohttp
 
+from pysaucenao.containers import *
+from pysaucenao.errors import *
 
-class SauceNAO:
+
+class SauceNaoResults:
+    """
+    SauceNao results container
+    """
+
+    def __init__(self, response: dict):
+        header, results = response['header'], response['results']
+        self.user_id: str               = header['user_id']
+        self.account_type: str          = header['account_type']
+        self.short_limit: str           = header['short_limit']
+        self.long_limit: str            = header['long_limit']
+        self.long_remaining: int        = header['long_remaining']
+        self.short_remaining: int       = header['short_remaining']
+        self.status: int                = header['status']
+        self.results_requested: int     = header['results_requested']
+        self.search_depth: str          = header['search_depth']
+        self.minimum_similarity: float  = header['minimum_similarity']
+
+        self.results: typing.List[GenericSource] = []
+        for result in results:
+            self.results.append(self._process_result(result))
+
+    def _process_result(self, result):
+        """
+        Parse json response into an applicable container object
+        """
+        header, data = result['header'], result['data']
+
+        # Pixiv
+        if header['index_id'] in (5, 6):
+            return PixivSource(header, data)
+
+        # Booru
+        if header['index_id'] in [9, 25, 26, 29]:
+            return BooruSource(header, data)
+
+        # Video
+        if header['index_id'] in [21, 22, 23, 24]:
+            return VideoSource(header, data)
+
+        # Other
+        return GenericSource(header, data)
+
+    def __len__(self):
+        return len(self.results)
+
+    def __repr__(self):
+        rep = reprlib.Repr()
+        rep.maxlist = 4
+        return f"<SauceNaoResults(count={len(self.results)}, short_avail={self.short_remaining}, long_avail={self.long_remaining}, results={rep.repr(self.results)})>"
+
+
+class SauceNao:
 
     API_URL = 'https://saucenao.com/search.php'
 
@@ -47,12 +99,7 @@ class SauceNAO:
             status_code, response = await self._fetch(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-
-        results = []
-        for result in response['results']:
-            results.append(self._process_response(result))
-
-        return results
+        return SauceNaoResults(response)
 
     # noinspection PyTypeChecker
     async def from_file(self, fp: str):
@@ -67,33 +114,7 @@ class SauceNAO:
                 status_code, response = await self._post(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-
-        results = []
-        for result in response['results']:
-            results.append(self._process_response(result))
-
-        return results
-
-    def _process_response(self, response: dict):
-        """
-        Parse json response into an applicable container object
-        """
-        header, data = response['header'], response['data']
-
-        # Pixiv
-        if header['index_id'] in (5, 6):
-            return PixivSource(header, data)
-
-        # Booru
-        if header['index_id'] in [9, 25, 26, 29]:
-            return BooruSource(header, data)
-
-        # Video
-        if header['index_id'] in [21, 22, 23, 24]:
-            return VideoSource(header, data)
-
-        # Other
-        return GenericSource(header, data)
+        return SauceNaoResults(response)
 
     def _verify_request(self, status_code: int, data: dict):
         """
