@@ -194,11 +194,11 @@ class VideoSource(GenericSource):
     def _parse_data(self, data: dict):
         super()._parse_data(data)
         if 'part' in data:
-            self.episode = int(data['part'])
+            self.episode = data['part']
         if 'est_time' in data:
             self.timestamp = data['est_time']
         if 'year' in data:
-            self.year = int(data['year'])
+            self.year = data['year']
 
     def __repr__(self):
         rep = reprlib.Repr()
