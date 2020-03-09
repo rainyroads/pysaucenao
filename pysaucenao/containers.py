@@ -210,34 +210,23 @@ class MangaSource(GenericSource):
 
     def __init__(self, header: dict, data: dict):
 
-        self.author_name:   typing.Optional[str] = None
-        self.title:         typing.Optional[str] = None
-        self.index:         typing.Optional[str] = None
-
-
+        self.chapter:       typing.Optional[str] = None
         super().__init__(header, data)
 
-        @property
-        def type(self):
-            return TYPE_MANGA
     @property
-    def _parse_data(self, data: dict):
-        if 'title' in data:
-            self.title = data['title']
-        elif 'eng_name' in data:
-            self.title = data['eng_name']
-        elif 'source' in data:
-            self.title = data['source']
+    def type(self):
+        return TYPE_MANGA
 
+    def _parse_data(self, data: dict):
+        super()._parse_data(data)
         if 'part' in data:
-            self.episode = data['part']
+            self.chapter = data['part']
 
         if 'author' in data:
             self.author_name = data['author']
         elif 'creator' in data:
             self.author_name = data['creator']
 
-
     def __repr__(self):
         rep = reprlib.Repr()
-        return f"<MangaSource(title={rep.repr(self.title)},author={self.author_name} episode={self.episode}, source='{self.index}')>"
+        return f"<MangaSource(title={rep.repr(self.title)}, author={self.author_name} episode={self.episode}, source='{self.index}')>"
