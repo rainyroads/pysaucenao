@@ -7,7 +7,6 @@ TYPE_BOORU      = 'booru'
 TYPE_VIDEO      = 'video'
 TYPE_MANGA      = 'manga'
 
-
 INDEXES = {
     '0' : 'H-Magazines',
     '2' : 'H-Game CG',
@@ -221,7 +220,7 @@ class MangaSource(GenericSource):
         @property
         def type(self):
             return TYPE_MANGA
-
+    @property
     def _parse_data(self, data: dict):
         if 'title' in data:
             self.title = data['title']
