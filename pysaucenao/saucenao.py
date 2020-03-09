@@ -50,6 +50,10 @@ class SauceNaoResults:
         if header['index_id'] in [21, 22, 23, 24]:
             return VideoSource(header, data)
 
+        # Manga
+        if header['index_id'] in [0, 3, 16, 18, 36, 37]:
+            return MangaSource(header, data)
+
         # Other
         return GenericSource(header, data)
 
