@@ -1,5 +1,5 @@
 # PySauceNao
-![GitHub](https://img.shields.io/github/license/FujiMakoto/pysaucenao)
+![GitHub](https://img.shields.io/github/license/FujiMakoto/pysaucenao) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/fujimakoto/pysaucenao)
 
 PySauceNao is an unofficial asynchronous library for the [SauceNao](https://saucenao.com/) API. It supports lookups via URL or from the local filesystem.
 
@@ -69,6 +69,8 @@ if isinstance(results[0], VideoSource):
     results[0].year       # '2017'
     results[0].timestamp  # '00:07:53 / 00:23:40'
 ```
+
+MangaSource search results, similarly, provide an additional `chapter` property.
 
 ## Registering for an API key
 If you are performing lots of API queries, you will eventually need to sign up and register for an API key (and possibly upgrade your account for very large request volumes)
