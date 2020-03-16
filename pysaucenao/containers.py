@@ -229,4 +229,4 @@ class MangaSource(GenericSource):
 
     def __repr__(self):
         rep = reprlib.Repr()
-        return f"<MangaSource(title={rep.repr(self.title)}, author={self.author_name} chapter={self.chapter}, source='{self.index}')>"
+        return f"<MangaSource(title={rep.repr(self.title)}, author={self.author_name} episode={self.episode}, source='{self.index}')>"
