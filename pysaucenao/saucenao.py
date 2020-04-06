@@ -3,7 +3,7 @@ import logging
 from typing import *
 
 import aiohttp
-
+from aiohttp_proxy import ProxyConnector, ProxyType
 from pysaucenao.containers import *
 from pysaucenao.errors import *
 
@@ -78,9 +78,11 @@ class SauceNao:
                  db_mask_disable: Optional[int] = None,
                  db: int = 999,
                  results_limit: int = 6,
-                 min_similarity: float = 65.0,
-                 test_mode: int = 0,
-                 loop: Optional[asyncio.AbstractEventLoop] = None) -> None:
+                 min_similarity: float = 50.0,
+                 test_mode: int = 1,
+                 loop: Optional[asyncio.AbstractEventLoop] = None,
+                 proxy: Optional[str] = None) -> None:
+
 
         params = dict()
         if api_key:
@@ -96,6 +98,7 @@ class SauceNao:
         self.params = params
 
         self._min_similarity = min_similarity
+        self._proxy = proxy
         self._loop = loop
         self._log = logging.getLogger(__name__)
 
@@ -105,9 +108,15 @@ class SauceNao:
         """
         params = self.params.copy()
         params['url'] = url
-        async with aiohttp.ClientSession(loop=self._loop) as session:
-            self._log.debug(f"""Executing SauceNAO API request on URL: {url}""")
-            status_code, response = await self._fetch(session, self.API_URL, params)
+        if self._proxy == None:
+            async with aiohttp.ClientSession(loop=self._loop) as session:
+                self._log.debug(f"""Executing SauceNAO API request on URL: {url}""")
+                status_code, response = await self._fetch(session, self.API_URL, params)
+        else:
+            connector = ProxyConnector.from_url(self._proxy)
+            async with aiohttp.ClientSession(loop=self._loop, connector=connector) as session:
+                self._log.debug(f"""Executing SauceNAO API request on URL: {url}""")
+                status_code, response = await self._fetch(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
         return SauceNaoResults(response, self._min_similarity)
@@ -120,9 +129,15 @@ class SauceNao:
         params = self.params.copy()
         with open(fp, 'rb') as fh:
             params['file'] = fh
-            async with aiohttp.ClientSession(loop=self._loop) as session:
-                self._log.debug(f"""Executing SauceNAO API request on local file: {fp}""")
-                status_code, response = await self._post(session, self.API_URL, params)
+            if self._proxy == None:
+                async with aiohttp.ClientSession(loop=self._loop) as session:
+                    self._log.debug(f"""Executing SauceNAO API request on local file: {fp}""")
+                    status_code, response = await self._post(session, self.API_URL, params)
+            else:
+                connector = ProxyConnector.from_url(self._proxy)
+                async with aiohttp.ClientSession(loop=self._loop, connector=connector) as session:
+                    self._log.debug(f"""Executing SauceNAO API request on local file: {fp}""")
+                    status_code, response = await self._post(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
         return SauceNaoResults(response, self._min_similarity)
