@@ -14,15 +14,17 @@ pip install pysaucenao
 ## Usage
 ```python
 from pysaucenao import SauceNao
-sauce = SauceNao(self, *, api_key: Optional[str] = None,
-                 db_mask: Optional[int] = None,
-                 db_mask_disable: Optional[int] = None,
+sauce = SauceNao(api_key: None,
+                 db_mask:,
+                 db_mask_disable: None,
                  db: int = 999,
                  results_limit: int = 6,
-                 min_similarity: float = 65.0,
-                 test_mode: int = 0,
-                 loop: Optional[asyncio.AbstractEventLoop] = None)
-
+                 min_similarity: 65.0,
+                 test_mode:  0,
+                 proxy: None,
+                 loop: None)
+# sauce = SauceNao(proxy = "http://....") 
+# support http, https, socks4 and socks5 proxies
 # results = await sauce.from_file('/path/to/image.png')
 results = await sauce.from_url('https://i.imgur.com/QaKpV3s.png')
 repr(results)
