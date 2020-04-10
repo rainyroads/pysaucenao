@@ -108,7 +108,7 @@ class SauceNao:
         """
         params = self.params.copy()
         params['url'] = url
-        if self._proxy == None:
+        if self._proxy is None:
             async with aiohttp.ClientSession(loop=self._loop) as session:
                 self._log.debug(f"""Executing SauceNAO API request on URL: {url}""")
                 status_code, response = await self._fetch(session, self.API_URL, params)
@@ -129,7 +129,7 @@ class SauceNao:
         params = self.params.copy()
         with open(fp, 'rb') as fh:
             params['file'] = fh
-            if self._proxy == None:
+            if self._proxy is None:
                 async with aiohttp.ClientSession(loop=self._loop) as session:
                     self._log.debug(f"""Executing SauceNAO API request on local file: {fp}""")
                     status_code, response = await self._post(session, self.API_URL, params)
