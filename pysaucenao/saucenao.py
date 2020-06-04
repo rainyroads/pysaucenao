@@ -80,6 +80,7 @@ class SauceNao:
                  results_limit: int = 6,
                  min_similarity: float = 65.0,
                  test_mode: int = 0,
+                 strict_mode: bool = False,
                  loop: Optional[asyncio.AbstractEventLoop] = None) -> None:
 
         params = dict()
@@ -96,6 +97,7 @@ class SauceNao:
         self.params = params
 
         self._min_similarity = min_similarity
+        self._strict_mode = strict_mode
         self._loop = loop
         self._log = logging.getLogger(__name__)
 
@@ -134,7 +136,12 @@ class SauceNao:
         if status_code == 200:
             header = data['header']
             if header['status'] != 0:
-                raise UnknownStatusCodeException(header['message'])
+                self._log.warning(f"Non-zero status code returned: {header['status']}")
+                # A non-zero status code may just mean some indexes are offline, but we can still get results from
+                # those that are up. If strict mode is enabled, we should throw an exception. Otherwise, we return
+                # what data we have regardless.
+                if self._strict_mode:
+                    raise UnknownStatusCodeException(header['status'])
         elif status_code == 429:
             header = data['header']
             if "searches every 30 seconds" in header['message']:

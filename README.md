@@ -21,6 +21,7 @@ sauce = SauceNao(self, *, api_key: Optional[str] = None,
                  results_limit: int = 6,
                  min_similarity: float = 65.0,
                  test_mode: int = 0,
+                 strict_mode: bool = False,
                  loop: Optional[asyncio.AbstractEventLoop] = None)
 
 # results = await sauce.from_file('/path/to/image.png')
