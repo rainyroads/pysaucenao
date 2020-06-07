@@ -161,7 +161,7 @@ class BooruSource(GenericSource):
         """
         Return the linked source if available
         """
-        if 'source' in self.data:
+        if 'source' in self.data and self.data['source']:
             return self.data['source']
 
         return self.url
