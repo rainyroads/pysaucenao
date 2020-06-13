@@ -9,15 +9,15 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
         name='pysaucenao',  # How you named your package folder (MyLib)
         packages=['pysaucenao'],  # Chose the same as "name"
-        version='0.2.2',  # Start with a small number and increase it with every change you make
-        license='gpl-3.0',  # Chose a license from here: https://help.github.com/articles/licensing-a-repository
+        version='1.0.0',  # Start with a small number and increase it with every change you make
+        license='agpl-3.0',  # Chose a license from here: https://help.github.com/articles/licensing-a-repository
         description='PySauceNao is an unofficial asynchronous library for the SauceNao API. It supports lookups via URL or from the local filesystem.',  # Give a short description about your library
         long_description=long_description,
         long_description_content_type='text/markdown',
         author='Makoto',  # Type in your name
         author_email='FujiMakoto@users.noreply.github.com',  # Type in your E-Mail
         url='https://github.com/FujiMakoto/pysaucenao',  # Provide either the link to your github or to your website
-        download_url='https://github.com/FujiMakoto/pysaucenao/archive/0.2.1.tar.gz',
+        download_url='https://github.com/FujiMakoto/pysaucenao/archive/1.0.0.tar.gz',
         keywords=['saucenao', 'anime', 'artwork'],  # Keywords that define your package best
         install_requires=[
             'aiohttp',
@@ -27,7 +27,7 @@ setup(
             'Intended Audience :: Developers',
             'Topic :: Multimedia :: Graphics',
             'Topic :: Software Development :: Libraries :: Python Modules',
-            'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',  # Again, pick a license
+            'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',  # Again, pick a license
             'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
             'Programming Language :: Python :: 3.8'
