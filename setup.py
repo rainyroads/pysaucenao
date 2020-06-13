@@ -23,7 +23,7 @@ setup(
             'aiohttp',
         ],
         classifiers=[
-            'Development Status :: 4 - Beta',
+            'Development Status :: 5 - Production/Stable',
             'Intended Audience :: Developers',
             'Topic :: Multimedia :: Graphics',
             'Topic :: Software Development :: Libraries :: Python Modules',
