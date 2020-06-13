@@ -19,9 +19,9 @@ sauce = SauceNao(self, *, api_key: Optional[str] = None,
                  db_mask_disable: Optional[int] = None,
                  db: int = 999,
                  results_limit: int = 6,
-                 min_similarity: float = 65.0,
+                 min_similarity: float = 50.0,
                  test_mode: int = 0,
-                 strict_mode: bool = False,
+                 strict_mode: bool = True,
                  loop: Optional[asyncio.AbstractEventLoop] = None)
 
 # results = await sauce.from_file('/path/to/image.png')
@@ -37,7 +37,7 @@ The library attempts to provide a developer friendly container format for all re
 ```python
 from pysaucenao import SauceNao, PixivSource
 sauce = SauceNao()
-results = sauce.from_url('https://i.imgur.com/oVPWy7f.png')
+results = await sauce.from_url('https://i.imgur.com/oVPWy7f.png')
 
 len(results)  # 4
 
@@ -63,7 +63,7 @@ Video search results provide three additional properties containing the episode 
 ```python
 from pysaucenao import SauceNao, VideoSource
 sauce = SauceNao()
-results = sauce.from_url('https://i.imgur.com/1M8MhB0.png')
+results = await sauce.from_url('https://i.imgur.com/1M8MhB0.png')
 
 if isinstance(results[0], VideoSource):
     results[0].episode    # '1'
@@ -84,6 +84,10 @@ The SauceNao class will throw an exception if any of the following occur:
 * You have exceeded your 24-hour search query limit (DailyLimitReachedException)
 * You attempted to upload a file larger than SauceNAO allows (FileSizeLimitException)
 * You provided an invalid API key (InvalidOrWrongApiKeyException)
+* The image was too small for use (ImageSizeException)
+* Either the URL or file provided was not a valid image (InvalidImageException)
+* Too many failed requests made; try again later (TooManyFailedRequestsException)
+* Your account does not have API access; contact SauceNao support (BannedException)
 * Any other unknown error occurred / service may be down (UnknownStatusCodeException)
 
 All of these exceptions extend a base SauceNaoException class for easy catching and handling.
