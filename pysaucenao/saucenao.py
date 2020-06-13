@@ -17,7 +17,7 @@ class SauceNao:
                  db_mask_disable: Optional[int] = None,
                  db: int = 999,
                  results_limit: int = 6,
-                 min_similarity: float = 65.0,
+                 min_similarity: float = 50.0,
                  test_mode: int = 0,
                  strict_mode: bool = True,
                  loop: Optional[asyncio.AbstractEventLoop] = None) -> None:
