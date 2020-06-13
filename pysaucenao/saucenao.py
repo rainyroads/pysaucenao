@@ -105,8 +105,8 @@ class SauceNao:
                 # A non-zero status code may just mean some indexes are offline, but we can still get results from
                 # those that are up. If strict mode is enabled, we should throw an exception. Otherwise, we return
                 # what data we have regardless.
-                if self._strict_mode:
-                    raise UnknownStatusCodeException(header.get('status'))
+                # if self._strict_mode:
+                #     raise UnknownStatusCodeException(header.get('status'))
         elif status_code == 429:
             header = data['header']
             if header.get('status') == -2:
