@@ -8,67 +8,6 @@ from pysaucenao.containers import *
 from pysaucenao.errors import *
 
 
-class SauceNaoResults:
-    """
-    SauceNao results container
-    """
-
-    def __init__(self, response: dict, min_similarity: typing.Optional[float] = None):
-        header, results = response['header'], response['results']
-        self.user_id: str               = header['user_id']
-        self.account_type: str          = header['account_type']
-        self.short_limit: str           = header['short_limit']
-        self.long_limit: str            = header['long_limit']
-        self.long_remaining: int        = header['long_remaining']
-        self.short_remaining: int       = header['short_remaining']
-        self.status: int                = header['status']
-        self.results_requested: int     = header['results_requested']
-        self.search_depth: str          = header['search_depth']
-        self.minimum_similarity: float  = header['minimum_similarity']
-
-        self.results: typing.List[GenericSource] = []
-        for result in results:
-            if min_similarity and float(result['header']['similarity']) < min_similarity:
-                continue
-            self.results.append(self._process_result(result))
-
-    def _process_result(self, result):
-        """
-        Parse json response into an applicable container object
-        """
-        header, data = result['header'], result['data']
-
-        # Pixiv
-        if header['index_id'] in (5, 6):
-            return PixivSource(header, data)
-
-        # Booru
-        if header['index_id'] in [9, 25, 26, 29]:
-            return BooruSource(header, data)
-
-        # Video
-        if header['index_id'] in [21, 22, 23, 24]:
-            return VideoSource(header, data)
-
-        # Manga
-        if header['index_id'] in [0, 3, 16, 18, 36, 37]:
-            return MangaSource(header, data)
-
-        # Other
-        return GenericSource(header, data)
-
-    def __getitem__(self, item):
-        return self.results[item]
-
-    def __len__(self):
-        return len(self.results)
-
-    def __repr__(self):
-        rep = reprlib.Repr()
-        rep.maxlist = 4
-        return f"<SauceNaoResults(count={len(self.results)}, short_avail={self.short_remaining}, long_avail={self.long_remaining}, results={rep.repr(self.results)})>"
-
-
 class SauceNao:
 
     API_URL = 'https://saucenao.com/search.php'
@@ -80,7 +19,7 @@ class SauceNao:
                  results_limit: int = 6,
                  min_similarity: float = 65.0,
                  test_mode: int = 0,
-                 strict_mode: bool = False,
+                 strict_mode: bool = True,
                  loop: Optional[asyncio.AbstractEventLoop] = None) -> None:
 
         params = dict()
@@ -135,19 +74,48 @@ class SauceNao:
         """
         if status_code == 200:
             header = data['header']
+            # Technically, an invalid API key will still be accepted and can return results. We will just be processing
+            # this as a guest query. If we have strict mode enabled, we should throw an exception anyways.
+            if self._strict_mode and (self.params.get('api_key') and not header['account_type']):
+                raise InvalidOrWrongApiKeyException('The provided API key does not exist')
+
             if header['status'] != 0:
-                self._log.warning(f"Non-zero status code returned: {header['status']}")
+                # Generic error, may indicate some databases are down or there's an account issue. May not be critical.
+                if header['status'] == 1:
+                    self._log.warning(header.get('message'))
+                    if self._strict_mode:
+                        raise UnknownStatusCodeException(header.get('status'))
+
+                # Account does not have API access. Likely means you've been banned. Contact SauceNao for support.
+                if header['status'] == -1:
+                    self._log.error(header.get('message'))
+                    raise BannedException(header.get('message'))
+
+                # These status codes means either an invalid file was uploaded or SauceNao could not download a remote image
+                if header['status'] in (-3, -4, -6):
+                    self._log.warning(header.get('message'))
+                    raise InvalidImageException(header.get('message'))
+
+                # Generally this should be caught via a 413 error, but just in-case
+                if header['status'] == -5:
+                    self._log.warning(header.get('message'))
+                    raise FileSizeLimitException(header.get('message'))
+
+                self._log.warning(f"Non-zero status code returned: {header.get('status')}")
                 # A non-zero status code may just mean some indexes are offline, but we can still get results from
                 # those that are up. If strict mode is enabled, we should throw an exception. Otherwise, we return
                 # what data we have regardless.
                 if self._strict_mode:
-                    raise UnknownStatusCodeException(header['status'])
+                    raise UnknownStatusCodeException(header.get('status'))
         elif status_code == 429:
             header = data['header']
-            if "searches every 30 seconds" in header['message']:
-                raise ShortLimitReachedException(header['message'])
+            if header.get('status') == -2:
+                raise TooManyFailedRequestsException
+
+            if "searches every 30 seconds" in header.get('message'):
+                raise ShortLimitReachedException(header.get('message'))
             else:
-                raise DailyLimitReachedException(header['message'])
+                raise DailyLimitReachedException(header.get('message'))
         elif status_code == 403:
             raise InvalidOrWrongApiKeyException
         elif status_code == 413:

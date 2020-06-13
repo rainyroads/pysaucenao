@@ -43,6 +43,67 @@ INDEXES = {
 }
 
 
+class SauceNaoResults:
+    """
+    SauceNao results container
+    """
+
+    def __init__(self, response: dict, min_similarity: typing.Optional[float] = None):
+        header, results = response['header'], response['results']
+        self.user_id: str               = header['user_id']
+        self.account_type: str          = header['account_type']
+        self.short_limit: str           = header['short_limit']
+        self.long_limit: str            = header['long_limit']
+        self.long_remaining: int        = header['long_remaining']
+        self.short_remaining: int       = header['short_remaining']
+        self.status: int                = header['status']
+        self.results_requested: int     = header['results_requested']
+        self.search_depth: str          = header['search_depth']
+        self.minimum_similarity: float  = header['minimum_similarity']
+
+        self.results: typing.List[GenericSource] = []
+        for result in results:
+            if min_similarity and float(result['header']['similarity']) < min_similarity:
+                continue
+            self.results.append(self._process_result(result))
+
+    def _process_result(self, result):
+        """
+        Parse json response into an applicable container object
+        """
+        header, data = result['header'], result['data']
+
+        # Pixiv
+        if header['index_id'] in (5, 6):
+            return PixivSource(header, data)
+
+        # Booru
+        if header['index_id'] in [9, 25, 26, 29]:
+            return BooruSource(header, data)
+
+        # Video
+        if header['index_id'] in [21, 22, 23, 24]:
+            return VideoSource(header, data)
+
+        # Manga
+        if header['index_id'] in [0, 3, 16, 18, 36, 37]:
+            return MangaSource(header, data)
+
+        # Other
+        return GenericSource(header, data)
+
+    def __getitem__(self, item):
+        return self.results[item]
+
+    def __len__(self):
+        return len(self.results)
+
+    def __repr__(self):
+        rep = reprlib.Repr()
+        rep.maxlist = 4
+        return f"<SauceNaoResults(count={len(self.results)}, short_avail={self.short_remaining}, long_avail={self.long_remaining}, results={rep.repr(self.results)})>"
+
+
 class GenericSource:
     """
     Basic attributes we should ideally have from any source, but not always
