@@ -101,12 +101,12 @@ class SauceNao:
                     self._log.warning(header.get('message'))
                     raise FileSizeLimitException(header.get('message'))
 
-                self._log.warning(f"Non-zero status code returned: {header.get('status')}")
-                # A non-zero status code may just mean some indexes are offline, but we can still get results from
-                # those that are up. If strict mode is enabled, we should throw an exception. Otherwise, we return
-                # what data we have regardless.
-                # if self._strict_mode:
-                #     raise UnknownStatusCodeException(header.get('status'))
+                if header['status'] < 0:
+                    self._log.warning(f"Non-zero status code returned: {header.get('status')}")
+                    # A positive non-zero status code may just mean some indexes are offline, but we can still get results
+                    # from those that are up. A negative status code means something more serious went wrong.
+                    if self._strict_mode or 'results' not in data:
+                        raise UnknownStatusCodeException(header.get('status'))
         elif status_code == 429:
             header = data['header']
             if header.get('status') == -2:
