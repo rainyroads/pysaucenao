@@ -121,7 +121,7 @@ class SauceNao:
         elif status_code == 413:
             raise FileSizeLimitException
         else:
-            raise UnknownStatusCodeException
+            raise UnknownStatusCodeException(f"HTTP {status_code}")
 
     async def _fetch(self, session: aiohttp.ClientSession, url: str, params: Optional[Mapping[str, str]] = None) -> Tuple[int, dict]:
         async with session.get(url, params=params) as response:
