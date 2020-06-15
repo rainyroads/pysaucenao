@@ -35,7 +35,4 @@ class BannedException(SauceNaoException):
 
 
 class UnknownStatusCodeException(SauceNaoException):
-    """
-    TODO: This will probably be renamed in the future, as we know what non-zero status codes generally mean
-    """
     pass
