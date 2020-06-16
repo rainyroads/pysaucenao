@@ -110,7 +110,7 @@ class SauceNao:
         elif status_code == 429:
             header = data['header']
             if header.get('status') == -2:
-                raise TooManyFailedRequestsException
+                raise TooManyFailedRequestsException(header.get('message'))
 
             if "searches every 30 seconds" in header.get('message'):
                 raise ShortLimitReachedException(header.get('message'))
