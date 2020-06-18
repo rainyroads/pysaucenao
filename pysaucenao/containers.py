@@ -1,11 +1,17 @@
 import reprlib
 import typing
 
+from pysaucenao.errors import SauceNaoException
+
 TYPE_GENERIC    = 'generic'
 TYPE_PIXIV      = 'pixiv'
 TYPE_BOORU      = 'booru'
 TYPE_VIDEO      = 'video'
 TYPE_MANGA      = 'manga'
+
+ACCOUNT_UNREGISTERED    = '0'
+ACCOUNT_FREE            = '1'
+ACCOUNT_ENHANCED        = '2'
 
 INDEXES = {
     '0' : 'H-Magazines',
@@ -104,10 +110,41 @@ class SauceNaoResults:
         return f"<SauceNaoResults(count={len(self.results)}, short_avail={self.short_remaining}, long_avail={self.long_remaining}, results={rep.repr(self.results)})>"
 
 
+class TestResults:
+    """
+    Container for test query responses.
+    """
+    def __init__(self, response: dict, error: typing.Optional[SauceNaoException] = None):
+        self.error = error
+        self.success = not error
+
+        header, results = response.get('header'), response.get('results')
+        self.user_id: str               = header.get('user_id')
+        self.account_type: str          = str(header.get('account_type'))
+        self.short_limit: str           = header.get('short_limit')
+        self.long_limit: str            = header.get('long_limit')
+        self.long_remaining: int        = header.get('long_remaining')
+        self.short_remaining: int       = header.get('short_remaining')
+        self.status: int                = header.get('status')
+
+    def __repr__(self):
+        account_type = 'unknown'
+        if self.account_type == ACCOUNT_UNREGISTERED:
+            account_type = 'unregistered'
+        if self.account_type == ACCOUNT_FREE:
+            account_type = 'free'
+        if self.account_type == ACCOUNT_ENHANCED:
+            account_type = 'enhanced'
+
+        if self.error:
+            return f"<SauceNaoTest(success='{self.success}', account_type='{account_type}', error='{self.error}')>"
+
+        return f"<SauceNaoTest(success='{self.success}', account_type='{account_type}', short_avail={self.short_remaining}, long_avail={self.long_remaining})>"
+
+
 class GenericSource:
     """
     Basic attributes we should ideally have from any source, but not always
-    Documentation is a bit lacking so we have to assume and adjust based on real-world tests
     """
 
     def __init__(self, header: dict, data: dict):

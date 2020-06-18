@@ -40,9 +40,14 @@ class SauceNao:
         self._loop = loop
         self._log = logging.getLogger(__name__)
 
-    async def from_url(self, url: str):
+    async def from_url(self, url: str) -> SauceNaoResults:
         """
         Look up the source of an image on the internet
+        Args:
+            url (str): Web URL to an image
+
+        Returns:
+            SauceNaoResults
         """
         params = self.params.copy()
         params['url'] = url
@@ -54,9 +59,14 @@ class SauceNao:
         return SauceNaoResults(response, self._min_similarity)
 
     # noinspection PyTypeChecker
-    async def from_file(self, fp: str):
+    async def from_file(self, fp: str) -> SauceNaoResults:
         """
         Look up the source of an image on the local filesystem
+        Args:
+            fp (str): Path to the file to open
+
+        Returns:
+            SauceNaoResults
         """
         params = self.params.copy()
         with open(fp, 'rb') as fh:
@@ -68,9 +78,35 @@ class SauceNao:
         self._verify_request(status_code, response)
         return SauceNaoResults(response, self._min_similarity)
 
-    def _verify_request(self, status_code: int, data: dict):
+    async def test(self) -> TestResults:
+        """
+        Executes a test query and returns account information for the provided API key
+        Returns:
+            TestResults
+        """
+        params = self.params.copy()
+        params['testmode'] = '1'
+        params['numres'] = '1'
+        params['url'] = 'http://saucenao.com/images/static/banner.gif'
+
+        async with aiohttp.ClientSession(loop=self._loop) as session:
+            self._log.debug('Executing a test SauceNao API request')
+            status_code, response = await self._fetch(session, self.API_URL, params)
+
+        # For test queries, we just grab and store the exception on failure
+        error = None
+        try:
+            self._verify_request(status_code, response)
+        except SauceNaoException as _error:
+            error = _error
+
+        return TestResults(response, error)
+
+    def _verify_request(self, status_code: int, data: dict) -> None:
         """
         Verify that our request went through successfully
+        Returns:
+            None
         """
         if status_code == 200:
             header = data['header']
