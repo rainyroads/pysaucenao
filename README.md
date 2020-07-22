@@ -1,5 +1,5 @@
 # PySauceNao
-![GitHub](https://img.shields.io/github/license/FujiMakoto/pysaucenao) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/fujimakoto/pysaucenao)
+[![GitHub](https://img.shields.io/github/license/FujiMakoto/pysaucenao)](https://github.com/FujiMakoto/pysaucenao/blob/master/LICENSE) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pysaucenao)](https://pypi.org/project/pysaucenao/) [![PyPI](https://img.shields.io/pypi/v/pysaucenao)](https://pypi.org/project/pysaucenao/) [![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/fujimakoto/pysaucenao/latest)](https://github.com/FujiMakoto/pysaucenao/releases)
 
 PySauceNao is an unofficial asynchronous library for the [SauceNao](https://saucenao.com/) API. It supports lookups via URL or from the local filesystem.
 
