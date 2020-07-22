@@ -46,6 +46,7 @@ INDEXES = {
     '35': 'Pawoo.net',
     '36': 'Madokami (Manga)',
     '37': 'MangaDex',
+    '38': 'E-Hentai',
 }
 
 
