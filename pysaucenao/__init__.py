@@ -3,10 +3,10 @@ from pysaucenao.containers import GenericSource, PixivSource, BooruSource, Video
 from pysaucenao.errors import *
 
 __author__      = 'FujiMakoto'
-__copyright__   = 'Copyright 2020, Taiga.sh Development'
+__copyright__   = 'Copyright 2020, Taiga Development'
 __credits__     = ['FujiMakoto']
 __license__     = 'gpl-3.0'
-__version__     = '1.0.2'
+__version__     = '1.2.0'
 __maintainer__  = 'FujiMakoto'
 __email__       = 'makoto+github@taiga.sh'
 __status__      = 'Stable'
