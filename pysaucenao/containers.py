@@ -110,6 +110,10 @@ class SauceNaoResults:
         if self._min_similarity:
             self._results = [r for r in self._results if float(r['header']['similarity']) > self._min_similarity]
 
+        # No results to process?
+        if not self._results:
+            return
+
         # Get the similarity ranking of the top result as a reference
         tolerance = max([float(r['header']['similarity']) for r in self._results]) - self._priority_tolerance \
             if self._priority_tolerance \
