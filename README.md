@@ -74,7 +74,7 @@ if isinstance(results[0], VideoSource):
 MangaSource search results, similarly, provide an additional `chapter` property.
 
 ### Advanced usage
-If you want to prioritize certain types of results, you can do so using the `priority` setting as of v2.0
+If you want to prioritize certain types of results, you can do so using the `priority` setting as of v1.2
 
 The most useful case for this is to prioritize anime results, preventing anime screencaps hosted on DeviantArt and other indexes some taking priority.
 
