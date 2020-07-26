@@ -73,6 +73,20 @@ if isinstance(results[0], VideoSource):
 
 MangaSource search results, similarly, provide an additional `chapter` property.
 
+### Advanced usage
+If you want to prioritize certain types of results, you can do so using the `priority` setting as of v2.0
+
+The most useful case for this is to prioritize anime results, preventing anime screencaps hosted on DeviantArt and other indexes some taking priority.
+
+To use this in your own code, just initialize SauceNao like so,
+```python
+sauce = SauceNao(priority=[21, 22])
+```
+As long as the anime search results are reasonably close to the next best match SauceNao returns, this will make sure the library always returns the anime result first, and ideally never a reposted screen-grab.
+
+If you need to prioritize other indexes, you can find a list of ID's here:
+https://github.com/FujiMakoto/pysaucenao/blob/master/pysaucenao/containers.py#L16-L50
+
 ## Registering for an API key
 If you are performing lots of API queries, you will eventually need to sign up and register for an API key (and possibly upgrade your account for very large request volumes)
 
