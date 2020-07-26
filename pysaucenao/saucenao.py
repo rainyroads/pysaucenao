@@ -20,6 +20,8 @@ class SauceNao:
                  min_similarity: float = 50.0,
                  test_mode: int = 0,
                  strict_mode: bool = True,
+                 priority: typing.Optional[List] = None,
+                 priority_tolerance: float = 10.0,
                  loop: Optional[asyncio.AbstractEventLoop] = None) -> None:
 
         params = dict()
@@ -37,6 +39,8 @@ class SauceNao:
 
         self._min_similarity = min_similarity
         self._strict_mode = strict_mode
+        self._priority = priority
+        self._priority_tolerance = priority_tolerance
         self._loop = loop
         self._log = logging.getLogger(__name__)
 
@@ -56,7 +60,7 @@ class SauceNao:
             status_code, response = await self._fetch(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-        return SauceNaoResults(response, self._min_similarity)
+        return SauceNaoResults(response, self._min_similarity, self._priority, self._priority_tolerance)
 
     # noinspection PyTypeChecker
     async def from_file(self, fp: str) -> SauceNaoResults:
@@ -76,7 +80,7 @@ class SauceNao:
                 status_code, response = await self._post(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-        return SauceNaoResults(response, self._min_similarity)
+        return SauceNaoResults(response, self._min_similarity, self._priority, self._priority_tolerance)
 
     async def test(self) -> TestResults:
         """

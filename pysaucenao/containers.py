@@ -55,24 +55,25 @@ class SauceNaoResults:
     SauceNao results container
     """
 
-    def __init__(self, response: dict, min_similarity: typing.Optional[float] = None):
-        header, results = response['header'], response['results']
-        self.user_id: str               = header['user_id']
-        self.account_type: str          = header['account_type']
-        self.short_limit: str           = header['short_limit']
-        self.long_limit: str            = header['long_limit']
-        self.long_remaining: int        = header['long_remaining']
-        self.short_remaining: int       = header['short_remaining']
-        self.status: int                = header['status']
-        self.results_requested: int     = header['results_requested']
-        self.search_depth: str          = header['search_depth']
-        self.minimum_similarity: float  = header['minimum_similarity']
+    def __init__(self, response: dict, min_similarity: typing.Optional[float] = None,
+                 priority: typing.Optional[typing.List[int]] = None, priority_tolerance: float = 10.0):
+        self._header, self._results = response['header'], response['results']
+        self._min_similarity            = min_similarity
+        self._priority                  = priority
+        self._priority_tolerance        = priority_tolerance
+        self.user_id: str               = self._header['user_id']
+        self.account_type: str          = self._header['account_type']
+        self.short_limit: str           = self._header['short_limit']
+        self.long_limit: str            = self._header['long_limit']
+        self.long_remaining: int        = self._header['long_remaining']
+        self.short_remaining: int       = self._header['short_remaining']
+        self.status: int                = self._header['status']
+        self.results_requested: int     = self._header['results_requested']
+        self.search_depth: str          = self._header['search_depth']
+        self.minimum_similarity: float  = self._header['minimum_similarity']
 
-        self.results: typing.List[GenericSource] = []
-        for result in results:
-            if min_similarity and float(result['header']['similarity']) < min_similarity:
-                continue
-            self.results.append(self._process_result(result))
+        self._sort_results()
+        self.results: typing.List[GenericSource] = [self._process_result(r) for r in self._results]
 
     def _process_result(self, result):
         """
@@ -98,6 +99,58 @@ class SauceNaoResults:
 
         # Other
         return GenericSource(header, data)
+
+    def _sort_results(self) -> None:
+        """
+        Sort SauceNao results by index priority, if desired
+        Returns:
+            None
+        """
+        # Filter out results that don't meet the similarity threshold first
+        if self._min_similarity:
+            self._results = [r for r in self._results if float(r['header']['similarity']) > self._min_similarity]
+
+        # Get the similarity ranking of the top result as a reference
+        tolerance = max([float(r['header']['similarity']) for r in self._results]) - self._priority_tolerance \
+            if self._priority_tolerance \
+            else None
+
+        # Begin sorting by index priority
+        if self._priority:
+            priority_index = {}
+            extra_results = []
+            for index in self._priority:
+                priority_index[index] = []
+
+            for result in self._results:
+                _index_id = result['header']['index_id']
+                _similarity = float(result['header']['similarity'])
+
+                # Make sure the result is within the prioritization tolerance window
+                tolerable = True
+                if tolerance and _similarity < tolerance:
+                    tolerable = False
+
+                if _index_id in self._priority and tolerable:
+                    print(result)
+                    priority_index[_index_id].append(result)
+                else:
+                    extra_results.append(result)
+
+            # Since we've possibly pulled some things, re-sort the extras now
+            extra_results.sort(key=lambda x: float(x['header']['similarity']), reverse=True)
+
+            # Now make sure the priority indexes are sorted
+            for _index_id in priority_index.keys():
+                priority_index[_index_id].sort(key=lambda x: float(x['header']['similarity']), reverse=True)
+
+            # Time to bring everything back together
+            final_results = []
+            for index_id, results in priority_index.items():
+                final_results += results
+
+            final_results += extra_results
+            self._results = final_results
 
     def __getitem__(self, item):
         return self.results[item]
