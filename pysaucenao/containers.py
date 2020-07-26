@@ -136,7 +136,6 @@ class SauceNaoResults:
                     tolerable = False
 
                 if _index_id in self._priority and tolerable:
-                    print(result)
                     priority_index[_index_id].append(result)
                 else:
                     extra_results.append(result)
