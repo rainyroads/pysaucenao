@@ -1,8 +1,4 @@
-import asyncio
-import logging
 from typing import *
-
-import aiohttp
 
 from pysaucenao.containers import *
 from pysaucenao.errors import *

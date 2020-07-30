@@ -173,7 +173,7 @@ class SauceNaoResults:
         return len(self.results)
 
     def __bool__(self):
-        return len(self.results) > 1
+        return len(self.results) >= 1
 
     def __repr__(self):
         rep = reprlib.Repr()
