@@ -405,8 +405,13 @@ class AnimeSource(VideoSource):
         async with aiohttp.ClientSession(loop=self._loop, raise_for_status=True) as session:
             try:
                 response = await session.get(f"https://relations.yuna.moe/api/ids?source=anidb&id={self.data.get('anidb_aid')}")
-                self._ids = await response.json()
-                return self._ids
+                if response.status == 204:
+                    self._log.info("yuna.moe lookup failed for this anime source")
+                else:
+                    self._ids = await response.json()
+                    return self._ids
+            except aiohttp.ClientResponseError as error:
+                self._log.error(f'yuna.moe server is returning a {error.status} error code')
             except aiohttp.ClientError:
                 self._log.error('yuna.moe server appears to be down or is not responding to our requests')
 
@@ -415,8 +420,7 @@ class AnimeSource(VideoSource):
     # ID getters
     @property
     def anidb_id(self):
-        self._id_check()
-        return self._ids.get('anidb')
+        return self.data.get('anidb_aid')
 
     @property
     def anilist_id(self):
@@ -436,9 +440,6 @@ class AnimeSource(VideoSource):
     # URL getters
     @property
     def anidb_url(self):
-        if not self._id_check('anidb'):
-            return None
-
         return f"https://anidb.net/anime/{self.anidb_id}"
 
     @property
