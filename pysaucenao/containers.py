@@ -468,7 +468,10 @@ class AnimeSource(VideoSource):
             raise IndexError('You must run the load_ids() method before accessing this property')
 
         if index:
-            return index in self._ids
+            if index in self._ids and self._ids[index]:
+                return True
+
+            return False
 
     def __repr__(self):
         rep = reprlib.Repr()
