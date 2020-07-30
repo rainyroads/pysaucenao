@@ -60,7 +60,7 @@ class SauceNao:
             status_code, response = await self._fetch(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-        return SauceNaoResults(response, self._min_similarity, self._priority, self._priority_tolerance)
+        return SauceNaoResults(response, self._min_similarity, self._priority, self._priority_tolerance, self._loop)
 
     # noinspection PyTypeChecker
     async def from_file(self, fp: str) -> SauceNaoResults:
@@ -80,7 +80,7 @@ class SauceNao:
                 status_code, response = await self._post(session, self.API_URL, params)
 
         self._verify_request(status_code, response)
-        return SauceNaoResults(response, self._min_similarity, self._priority, self._priority_tolerance)
+        return SauceNaoResults(response, self._min_similarity, self._priority, self._priority_tolerance, self._loop)
 
     async def test(self) -> TestResults:
         """

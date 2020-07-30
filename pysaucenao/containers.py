@@ -1,5 +1,9 @@
+import asyncio
+import logging
 import reprlib
 import typing
+
+import aiohttp
 
 from pysaucenao.errors import SauceNaoException
 
@@ -56,11 +60,13 @@ class SauceNaoResults:
     """
 
     def __init__(self, response: dict, min_similarity: typing.Optional[float] = None,
-                 priority: typing.Optional[typing.List[int]] = None, priority_tolerance: float = 10.0):
+                 priority: typing.Optional[typing.List[int]] = None, priority_tolerance: float = 10.0,
+                 loop: typing.Optional[asyncio.AbstractEventLoop] = None):
         self._header, self._results = response['header'], response['results']
         self._min_similarity            = min_similarity
         self._priority                  = priority
         self._priority_tolerance        = priority_tolerance
+        self._loop                      = loop
         self.user_id: str               = self._header['user_id']
         self.account_type: str          = self._header['account_type']
         self.short_limit: str           = self._header['short_limit']
@@ -89,8 +95,12 @@ class SauceNaoResults:
         if header['index_id'] in [9, 25, 26, 29]:
             return BooruSource(header, data)
 
+        # Anime
+        if header['index_id'] in [21, 22]:
+            return AnimeSource(header, data, self._loop)
+
         # Video
-        if header['index_id'] in [21, 22, 23, 24]:
+        if header['index_id'] in [23, 24]:
             return VideoSource(header, data)
 
         # Manga
@@ -359,6 +369,101 @@ class VideoSource(GenericSource):
     def __repr__(self):
         rep = reprlib.Repr()
         return f"<VideoSource(title={rep.repr(self.title)}, episode={self.episode}, source='{self.index}')>"
+
+
+class AnimeSource(VideoSource):
+    """
+    Attributes specifically for anime and hentai sources
+    Contains special methods for obtaining anidb, anilist, mal and kitsu ID's
+    """
+
+    def __init__(self, header: dict, data: dict, loop: typing.Optional[asyncio.AbstractEventLoop] = None):
+        self._ids = None
+        self._loop = loop
+        self._log = logging.getLogger(__name__)
+
+        super().__init__(header, data)
+
+    async def load_ids(self) -> typing.Dict[str, int]:
+        """
+        Load and return a list of mapped source ID's
+        This needs to be explicitly called before utilizing any of the other class helper properties
+        Returns:
+            typing.Dict[str, int]
+        """
+        if self._ids is not None:
+            return self._ids
+
+        async with aiohttp.ClientSession(loop=self._loop, raise_for_status=True) as session:
+            try:
+                response = await session.get(f"https://relations.yuna.moe/api/ids?source=anidb&id={self.data.get('anidb_aid')}")
+                self._ids = await response.json()
+                return self._ids
+            except aiohttp.ClientError:
+                self._log.error('yuna.moe server appears to be down or is not responding to our requests')
+
+        self._ids = {}
+
+    # ID getters
+    @property
+    def anidb_id(self):
+        self._id_check()
+        return self._ids.get('anidb')
+
+    @property
+    def anilist_id(self):
+        self._id_check()
+        return self._ids.get('anilist')
+
+    @property
+    def mal_id(self):
+        self._id_check()
+        return self._ids.get('myanimelist')
+
+    @property
+    def kitsu_id(self):
+        self._id_check()
+        return self._ids.get('kitsu')
+
+    # URL getters
+    @property
+    def anidb_url(self):
+        if not self._id_check('anidb'):
+            return None
+
+        return f"https://anidb.net/anime/{self.anidb_id}"
+
+    @property
+    def anilist_url(self):
+        if not self._id_check('anilist'):
+            return None
+
+        return f"https://anilist.co/anime/{self.anilist_id}"
+
+    @property
+    def mal_url(self):
+        if not self._id_check('myanimelist'):
+            return None
+
+        return f"https://myanimelist.net/anime/{self.mal_id}"
+
+    @property
+    def kitsu_url(self):
+        if not self._id_check('kitsu'):
+            return None
+
+        return f"https://kitsu.io/anime/{self.kitsu_id}"
+
+    def _id_check(self, index: typing.Optional[str] = None):
+        if self._ids is None:
+            raise IndexError('You must run the load_ids() method before accessing this property')
+
+        if index:
+            return index in self._ids
+
+    def __repr__(self):
+        rep = reprlib.Repr()
+        return f"<AnimeSource(title={rep.repr(self.title)}, episode={self.episode}, source='{self.index}', ids_loaded='{self._ids is not None}')>"
 
 
 class MangaSource(GenericSource):
