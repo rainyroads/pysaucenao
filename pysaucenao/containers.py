@@ -11,6 +11,7 @@ TYPE_GENERIC    = 'generic'
 TYPE_PIXIV      = 'pixiv'
 TYPE_BOORU      = 'booru'
 TYPE_VIDEO      = 'video'
+TYPE_ANIME      = 'anime'
 TYPE_MANGA      = 'manga'
 
 ACCOUNT_UNREGISTERED    = '0'
@@ -386,6 +387,10 @@ class AnimeSource(VideoSource):
         self._log = logging.getLogger(__name__)
 
         super().__init__(header, data)
+
+    @property
+    def type(self):
+        return TYPE_ANIME
 
     async def load_ids(self) -> typing.Dict[str, int]:
         """
