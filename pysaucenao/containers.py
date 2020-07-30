@@ -171,6 +171,9 @@ class SauceNaoResults:
     def __len__(self):
         return len(self.results)
 
+    def __bool__(self):
+        return len(self.results) > 1
+
     def __repr__(self):
         rep = reprlib.Repr()
         rep.maxlist = 4
