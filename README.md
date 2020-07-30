@@ -74,6 +74,33 @@ if isinstance(results[0], VideoSource):
 MangaSource search results, similarly, provide an additional `chapter` property.
 
 ### Advanced usage
+
+#### Additional source URL's
+Thanks to [yuna.moe](https://github.com/BeeeQueue/arm-server), pysaucenao is no longer limited to just AniDB source URL's for anime results as of v1.3
+
+To utilize this new feature, you should first verify you are working with an Anime source.
+
+Once you have done that, you will need to preload the ID map by running the **load_ids** method.
+
+If you attempt to access any of the additional AnimeSource properties without first doing this, you will get an IndexError.
+```python
+from pysaucenao import SauceNao, AnimeSource
+sauce = SauceNao()
+results = await sauce.from_url('https://i.imgur.com/poAmgY0.png')
+
+if isinstance(results[0], AnimeSource):
+    await results[0].load_ids()
+```
+This will map the AniDB ID SauceNao returns with several other anime databases,
+```python
+results[0].title        # Made in Abyss
+results[0].anilist_id   # 97986
+results[0].anilist_url  # https://anilist.co/anime/97986
+results[0].mal_url      # https://myanimelist.net/anime/34599
+results[0].kitsu_url    # https://kitsu.io/anime/13273
+```
+
+#### Priority
 If you want to prioritize certain types of results, you can do so using the `priority` setting as of v1.2
 
 The most useful case for this is to prioritize anime results, preventing anime screencaps hosted on DeviantArt and other indexes some taking priority.
