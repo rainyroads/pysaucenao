@@ -71,14 +71,14 @@ class SauceNao:
         """
         params = self.params.copy()
 
-        async def _post(_fh: typing.BinaryIO):
+        async def _post(_fh: typing.IO):
             params['file'] = _fh
             async with aiohttp.ClientSession(loop=self._loop) as _session:
                 self._log.debug(f"Executing SauceNAO API request on local file: {path_or_fh}")
                 _status_code, _response = await self._post(_session, self.API_URL, params)
                 return _status_code, _response
 
-        if not isinstance(path_or_fh, io.BytesIO):
+        if not isinstance(path_or_fh, io.IOBase):
             with open(path_or_fh, 'rb') as fh:
                 status_code, response = await _post(fh)
         else:
