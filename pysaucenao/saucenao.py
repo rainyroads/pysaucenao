@@ -1,3 +1,4 @@
+import io
 from typing import *
 
 from pysaucenao.containers import *
@@ -59,21 +60,29 @@ class SauceNao:
         return SauceNaoResults(response, self._min_similarity, self._priority, self._priority_tolerance, self._loop)
 
     # noinspection PyTypeChecker
-    async def from_file(self, fp: str) -> SauceNaoResults:
+    async def from_file(self, path_or_fh: Union[str, typing.BinaryIO]) -> SauceNaoResults:
         """
         Look up the source of an image on the local filesystem
         Args:
-            fp (str): Path to the file to open
+            path_or_fh (typing.Union[str, typing.BinaryIO]): Path to the file to open or a file like object
 
         Returns:
             SauceNaoResults
         """
         params = self.params.copy()
-        with open(fp, 'rb') as fh:
-            params['file'] = fh
-            async with aiohttp.ClientSession(loop=self._loop) as session:
-                self._log.debug(f"""Executing SauceNAO API request on local file: {fp}""")
-                status_code, response = await self._post(session, self.API_URL, params)
+
+        async def _post(_fh: typing.BinaryIO):
+            params['file'] = _fh
+            async with aiohttp.ClientSession(loop=self._loop) as _session:
+                self._log.debug(f"Executing SauceNAO API request on local file: {path_or_fh}")
+                _status_code, _response = await self._post(_session, self.API_URL, params)
+                return _status_code, _response
+
+        if not isinstance(path_or_fh, io.BytesIO):
+            with open(path_or_fh, 'rb') as fh:
+                status_code, response = await _post(fh)
+        else:
+            status_code, response = await _post(path_or_fh)
 
         self._verify_request(status_code, response)
         return SauceNaoResults(response, self._min_similarity, self._priority, self._priority_tolerance, self._loop)
