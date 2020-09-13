@@ -339,6 +339,11 @@ class BooruSource(GenericSource):
     def type(self):
         return TYPE_BOORU
 
+    def _parse_data(self, data: dict):
+        super()._parse_data(data)
+        self.gelbooru_id = data["gelbooru_id"] or None
+        self.danbooru_id = data["danbooru_id"] or None
+
     def __repr__(self):
         rep = reprlib.Repr()
         return f"<GenericSource(title={rep.repr(self.title)}, author={rep.repr(self.author_name)}, source='{self.index}')>"
