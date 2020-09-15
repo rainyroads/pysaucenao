@@ -341,8 +341,8 @@ class BooruSource(GenericSource):
 
     def _parse_data(self, data: dict):
         super()._parse_data(data)
-        self.gelbooru_id = data["gelbooru_id"] or None
-        self.danbooru_id = data["danbooru_id"] or None
+        self.gelbooru_id = data.get("gelbooru_id")
+        self.danbooru_id = data.get("danbooru_id")
 
     def __repr__(self):
         rep = reprlib.Repr()
