@@ -228,7 +228,7 @@ class GenericSource:
         self.author_url:    typing.Optional[str] = None
         self.title:         typing.Optional[str] = None
         self.url:           typing.Optional[str] = None
-        self.urls:           typing.Optional[list] = None
+        self.urls:          typing.Optional[list] = None
         self.index:         typing.Optional[str] = None  # The name of the index pulled from. See INDEXES above
         self.index_id:      typing.Optional[int] = None
         self.index_name:    typing.Optional[str] = None

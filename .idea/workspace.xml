@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3ed09915-9b8f-493c-a7d2-1824e5ff5018" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DarkyenusTimeTracker">
+    <option name="autoStart" value="false" />
+    <option name="idleThresholdMs" value="0" />
+    <option name="autoCountIdleSeconds" value="0" />
+    <option name="pauseOtherTrackerInstances" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="5-priority" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="SOFT" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
+  </component>
+  <component name="JupyterTrust" id="72c213dd-c443-4173-aefd-1c347fbcb44c" />
+  <component name="ProjectId" id="1Wc7HhdACtY9gzauTr4sCYZTaxt" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="1" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pyinvision" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\josh\Code\pysaucenao" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="pysaucenao" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3ed09915-9b8f-493c-a7d2-1824e5ff5018" name="Default Changelist" comment="" />
+      <created>1579436942360</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1579436942360</updated>
+      <workItem from="1579436943525" duration="797000" />
+      <workItem from="1579438409756" duration="3971000" />
+      <workItem from="1579526496897" duration="33943000" />
+      <workItem from="1580156757105" duration="2067000" />
+      <workItem from="1580260440162" duration="1392000" />
+      <workItem from="1580348790745" duration="820000" />
+      <workItem from="1580702650027" duration="6740000" />
+      <workItem from="1580947176766" duration="1338000" />
+      <workItem from="1581318071503" duration="14000" />
+      <workItem from="1583791697382" duration="1374000" />
+      <workItem from="1588344682125" duration="2504000" />
+      <workItem from="1590842888479" duration="305000" />
+      <workItem from="1591054309264" duration="599000" />
+      <workItem from="1591249976471" duration="2781000" />
+      <workItem from="1591496556025" duration="1014000" />
+      <workItem from="1591951386327" duration="778000" />
+      <workItem from="1592010838953" duration="1000" />
+      <workItem from="1592039470707" duration="18162000" />
+      <workItem from="1592560860298" duration="599000" />
+      <workItem from="1592959986872" duration="353000" />
+      <workItem from="1595407715822" duration="2170000" />
+      <workItem from="1595549293785" duration="45000" />
+      <workItem from="1595749867501" duration="6169000" />
+      <workItem from="1595811632115" duration="599000" />
+      <workItem from="1595826884240" duration="786000" />
+      <workItem from="1595911901351" duration="6130000" />
+      <workItem from="1596093084624" duration="12760000" />
+      <workItem from="1596196323736" duration="3097000" />
+      <workItem from="1596923273494" duration="1341000" />
+      <workItem from="1601026129967" duration="1278000" />
+      <workItem from="1601030143855" duration="665000" />
+      <workItem from="1601033035748" duration="826000" />
+      <workItem from="1603416604252" duration="908000" />
+      <workItem from="1603505708189" duration="220000" />
+      <workItem from="1603505954527" duration="497000" />
+      <workItem from="1603506478924" duration="4011000" />
+      <workItem from="1604324552024" duration="40000" />
+      <workItem from="1606051341401" duration="164000" />
+    </task>
+    <task id="LOCAL-00007" summary="Similarity cutoff support">
+      <created>1579636891979</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1579636891979</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Imports">
+      <created>1579638261924</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1579638261924</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Minor tweaks and fixes">
+      <created>1579642907637</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1579642907637</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Implement __getitem__ for results">
+      <created>1579643068528</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1579643068528</updated>
+    </task>
+    <task id="LOCAL-00011" summary="setup files">
+      <created>1579645523120</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1579645523120</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Fixed readme for PyPi on the next release">
+      <created>1579645761920</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1579645761920</updated>
+    </task>
+    <task id="LOCAL-00013" summary="VideoSource fields may not be strict ints">
+      <created>1580348902037</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1580348902037</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Build v0.1.1">
+      <created>1580349004928</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1580349004928</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Cleanup and adjustments for #1">
+      <created>1583792210406</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1583792210406</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Build 0.2.0">
+      <created>1583792444598</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1583792444598</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fixed: Non-zero status codes do not return error messages, and do not necessarily mean the request failed, just that some indexes may be offline.">
+      <created>1591250802034</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1591250802034</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Version bump">
+      <created>1591251265984</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1591251265984</updated>
+    </task>
+    <task id="LOCAL-00019" summary="The source key might exist, but be empty. In this case, we should return the original URL.">
+      <created>1591496937221</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1591496937221</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Version bump">
+      <created>1591496963271</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1591496963271</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Proper error code handling (error codes obtained from SauceNao directly for reference) and some refactoring. &#10;&#10;Strict mode enabled by default now, since we can handle errors with confidence.">
+      <created>1592043433003</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1592043433003</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Min similarity default changed to 50.0%">
+      <created>1592043512046</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1592043512046</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Documentation updated">
+      <created>1592044065287</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1592044065287</updated>
+    </task>
+    <task id="LOCAL-00024" summary="First major / stable release now that we have proper error handling and everything. Includes some potential breaking changes.">
+      <created>1592044267678</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1592044267678</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Incorrect license change on PyPi (We aren't changing this to agpl when it was already gpl)">
+      <created>1592045294650</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1592045294650</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Update development status to stable">
+      <created>1592045376922</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1592045376922</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Apparently there are still positive status codes that are returned on successful results that we don't have documented yet. Disabling this for now and following up with SauceNao developer.">
+      <created>1592049202431</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1592049202431</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Version bump">
+      <created>1592049227777</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1592049227777</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Only raise an UnknownStatusCodeException for negative status codes or if results are missing">
+      <created>1592212985080</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1592212985080</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Include HTTP status code in exception message">
+      <created>1592217357879</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1592217357879</updated>
+    </task>
+    <task id="LOCAL-00031" summary="TODO removed">
+      <created>1592217390347</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1592217390347</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Include error message in exception">
+      <created>1592325235513</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1592325235513</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Version bump">
+      <created>1592325332757</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1592325332757</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Copyright info">
+      <created>1592326773338</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1592326773338</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Adds a test command for fetching API key information without requiring a URL to lookup; adds better documentation and return type annotating">
+      <created>1592474129436</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1592474129436</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Fixes a __repr__ bug for MangaSource container objects">
+      <created>1592474164571</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1592474164571</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Bump PyPi version to 1.1.0">
+      <created>1592474282740</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1592474282740</updated>
+    </task>
+    <task id="LOCAL-00038" summary="E-Hentai added to the list of indexes">
+      <created>1595408503507</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1595408503507</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Build 1.1.1">
+      <created>1595408659248</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1595408659248</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Implements support for priority sorting with a tolerance threshold">
+      <created>1595753289540</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1595753289540</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Version bump">
+      <created>1595754145525</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1595754145525</updated>
+    </task>
+    <task id="LOCAL-00042" summary="ValueError: max() arg is an empty sequence">
+      <created>1595757985405</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1595757985405</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Let's give this one more try.">
+      <created>1595758333138</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1595758333138</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Let's give this one more try.">
+      <created>1595758577232</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1595758577232</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Implements a new AnimeSource class with support for retrieving additional source URL's">
+      <created>1596100182261</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1596100182261</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Give SauceNaoResults bool support">
+      <created>1596100245929</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1596100245929</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Add TYPE_ANIME to the type list">
+      <created>1596100690608</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1596100690608</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Add AnimeSource to global imports">
+      <created>1596101034023</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1596101034023</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Version bump and documentation updates">
+      <created>1596101637543</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1596101637543</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Version bump and documentation updates">
+      <created>1596103702336</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1596103702336</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Maintenance patch">
+      <created>1596103744928</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1596103744929</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Proper error handling for yuna.moe queries and ensures anidb ID'a and URL's can always be returned even on failed queries">
+      <created>1596108612330</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1596108612330</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Version bump">
+      <created>1596108643347</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1596108643347</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Resolves an issue with URL's not generating properly if yuna.moe doesn't return a specific index ID">
+      <created>1596111112282</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1596111112282</updated>
+    </task>
+    <task id="LOCAL-00055" summary="One of these days I'm going to utilize test environments properly">
+      <created>1596111245091</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1596111245091</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update development status to stable" />
+    <MESSAGE value="Apparently there are still positive status codes that are returned on successful results that we don't have documented yet. Disabling this for now and following up with SauceNao developer." />
+    <MESSAGE value="Only raise an UnknownStatusCodeException for negative status codes or if results are missing" />
+    <MESSAGE value="Include HTTP status code in exception message" />
+    <MESSAGE value="TODO removed" />
+    <MESSAGE value="Include error message in exception" />
+    <MESSAGE value="Copyright info" />
+    <MESSAGE value="Adds a test command for fetching API key information without requiring a URL to lookup; adds better documentation and return type annotating" />
+    <MESSAGE value="Fixes a __repr__ bug for MangaSource container objects" />
+    <MESSAGE value="Bump PyPi version to 1.1.0" />
+    <MESSAGE value="E-Hentai added to the list of indexes" />
+    <MESSAGE value="Build 1.1.1" />
+    <MESSAGE value="Implements support for priority sorting with a tolerance threshold" />
+    <MESSAGE value="ValueError: max() arg is an empty sequence" />
+    <MESSAGE value="Let's give this one more try." />
+    <MESSAGE value="Implements a new AnimeSource class with support for retrieving additional source URL's" />
+    <MESSAGE value="Give SauceNaoResults bool support" />
+    <MESSAGE value="Add TYPE_ANIME to the type list" />
+    <MESSAGE value="Add AnimeSource to global imports" />
+    <MESSAGE value="Version bump and documentation updates" />
+    <MESSAGE value="Maintenance patch" />
+    <MESSAGE value="Proper error handling for yuna.moe queries and ensures anidb ID'a and URL's can always be returned even on failed queries" />
+    <MESSAGE value="Version bump" />
+    <MESSAGE value="Resolves an issue with URL's not generating properly if yuna.moe doesn't return a specific index ID" />
+    <MESSAGE value="One of these days I'm going to utilize test environments properly" />
+    <option name="LAST_COMMIT_MESSAGE" value="One of these days I'm going to utilize test environments properly" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="906" y="378" key="#Inspections" timestamp="1596100429983">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="906" y="378" key="#Inspections/0.0.2560.1400@0.0.2560.1400" timestamp="1596100429983" />
+    <state x="1334" y="215" key="CommitChangelistDialog2" timestamp="1596111244349">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1334" y="215" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1596111244349" />
+    <state x="1060" y="454" key="FileChooserDialogImpl" timestamp="1603673163643">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1060" y="454" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1603673163643" />
+    <state x="730" y="353" key="SettingsEditor" timestamp="1603506452402">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="730" y="353" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1603506452402" />
+    <state x="628" y="514" key="Vcs.Push.Dialog.v2" timestamp="1596111246158">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="628" y="514" key="Vcs.Push.Dialog.v2/0.0.2560.1400@0.0.2560.1400" timestamp="1596111246158" />
+    <state x="1097" y="610" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1596923296330">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1097" y="610" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1596923296330" />
+    <state x="966" y="416" width="627" height="568" key="find.popup" timestamp="1601026152187">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="966" y="416" width="627" height="568" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1601026152187" />
+    <state x="1000" y="476" key="git4idea.merge.GitPullDialog" timestamp="1595754120328">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1000" y="476" key="git4idea.merge.GitPullDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1595754120328" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1603416739388">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1603416739388" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/pysaucenao$test.coverage" NAME="test Coverage Results" MODIFIED="1592472833590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
