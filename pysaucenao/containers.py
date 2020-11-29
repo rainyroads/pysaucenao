@@ -228,6 +228,7 @@ class GenericSource:
         self.author_url:    typing.Optional[str] = None
         self.title:         typing.Optional[str] = None
         self.url:           typing.Optional[str] = None
+        self.urls:          typing.Optional[list] = None
         self.index:         typing.Optional[str] = None  # The name of the index pulled from. See INDEXES above
         self.index_id:      typing.Optional[int] = None
         self.index_name:    typing.Optional[str] = None
@@ -289,6 +290,7 @@ class GenericSource:
         # URL to the index page. Booru's may also provide links to the original source, which can be found with source_url
         if 'ext_urls' in data:
             self.url = data['ext_urls'][0]
+            self.urls = data['ext_urls']
 
     def __repr__(self):
         rep = reprlib.Repr()
@@ -343,6 +345,14 @@ class BooruSource(GenericSource):
         super()._parse_data(data)
         self.gelbooru_id = data.get("gelbooru_id")
         self.danbooru_id = data.get("danbooru_id")
+
+        self.characters = data.get("characters")
+        if self.characters:
+            self.characters = self.characters.replace(', ', ',').split(',')
+
+        self.material = data.get('material')
+        if self.material:
+            self.material = self.material.replace(', ', ',').split(',')
 
     def __repr__(self):
         rep = reprlib.Repr()
