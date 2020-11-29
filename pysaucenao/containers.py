@@ -345,7 +345,14 @@ class BooruSource(GenericSource):
         super()._parse_data(data)
         self.gelbooru_id = data.get("gelbooru_id")
         self.danbooru_id = data.get("danbooru_id")
+
         self.characters = data.get("characters")
+        if self.characters:
+            self.characters = self.characters.replace(', ', ',').split(',')
+
+        self.material = data.get('material')
+        if self.material:
+            self.material = self.material.replace(', ', ',').split(',')
 
     def __repr__(self):
         rep = reprlib.Repr()
