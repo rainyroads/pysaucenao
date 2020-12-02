@@ -4,6 +4,7 @@ import reprlib
 import typing
 
 import aiohttp
+from aiohttp_proxy import ProxyConnector
 
 from pysaucenao.errors import SauceNaoException
 
