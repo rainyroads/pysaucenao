@@ -94,7 +94,7 @@ class SauceNaoResults:
             return PixivSource(header, data)
 
         # Booru
-        if header['index_id'] in [9, 25, 26, 29]:
+        if header['index_id'] in [9, 12, 25, 26, 29]:
             return BooruSource(header, data)
 
         # Anime
