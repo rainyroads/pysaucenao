@@ -106,7 +106,7 @@ class SauceNaoResults:
             return VideoSource(header, data)
 
         # Manga
-        if header['index_id'] in [0, 3, 16, 18, 36, 37]:
+        if header['index_id'] in [0, 3, 16, 18, 36, 37, 38]:
             return MangaSource(header, data)
 
         # Other
