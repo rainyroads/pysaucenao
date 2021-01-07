@@ -4,6 +4,7 @@ import reprlib
 import typing
 
 import aiohttp
+from aiohttp_proxy import ProxyConnector
 
 from pysaucenao.errors import SauceNaoException
 
@@ -93,7 +94,7 @@ class SauceNaoResults:
             return PixivSource(header, data)
 
         # Booru
-        if header['index_id'] in [9, 25, 26, 29]:
+        if header['index_id'] in [9, 12, 25, 26, 29]:
             return BooruSource(header, data)
 
         # Anime
@@ -105,7 +106,7 @@ class SauceNaoResults:
             return VideoSource(header, data)
 
         # Manga
-        if header['index_id'] in [0, 3, 16, 18, 36, 37]:
+        if header['index_id'] in [0, 3, 16, 18, 36, 37, 38]:
             return MangaSource(header, data)
 
         # Other

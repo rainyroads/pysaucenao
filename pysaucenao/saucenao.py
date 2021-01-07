@@ -19,6 +19,7 @@ class SauceNao:
                  strict_mode: bool = True,
                  priority: typing.Optional[List] = None,
                  priority_tolerance: float = 10.0,
+                 proxy: str = None,
                  loop: Optional[asyncio.AbstractEventLoop] = None) -> None:
 
         params = dict()
@@ -40,6 +41,7 @@ class SauceNao:
         self._priority_tolerance = priority_tolerance
         self._loop = loop
         self._log = logging.getLogger(__name__)
+        self.connector = ProxyConnector().from_url(proxy) if proxy else None
 
     async def from_url(self, url: str) -> SauceNaoResults:
         """
@@ -52,7 +54,7 @@ class SauceNao:
         """
         params = self.params.copy()
         params['url'] = url
-        async with aiohttp.ClientSession(loop=self._loop) as session:
+        async with aiohttp.ClientSession(loop=self._loop, connector=self.connector) as session:
             self._log.debug(f"""Executing SauceNAO API request on URL: {url}""")
             status_code, response = await self._fetch(session, self.API_URL, params)
 
@@ -73,7 +75,7 @@ class SauceNao:
 
         async def _post(_fh: typing.IO):
             params['file'] = _fh
-            async with aiohttp.ClientSession(loop=self._loop) as _session:
+            async with aiohttp.ClientSession(loop=self._loop, connector=self.connector) as _session:
                 self._log.debug(f"Executing SauceNAO API request on local file: {path_or_fh}")
                 _status_code, _response = await self._post(_session, self.API_URL, params)
                 return _status_code, _response
@@ -98,7 +100,7 @@ class SauceNao:
         params['numres'] = '1'
         params['url'] = 'http://saucenao.com/images/static/banner.gif'
 
-        async with aiohttp.ClientSession(loop=self._loop) as session:
+        async with aiohttp.ClientSession(loop=self._loop, connector=self.connector) as session:
             self._log.debug('Executing a test SauceNao API request')
             status_code, response = await self._fetch(session, self.API_URL, params)
 
