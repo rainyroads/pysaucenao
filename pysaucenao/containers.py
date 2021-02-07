@@ -554,7 +554,7 @@ class MangaSource(GenericSource):
         super()._parse_data(data)
         if 'part' in data:
             self.chapter = data['part']
-        
+
         if 'eng_name' in data:
             self.title = data['eng_name']
         elif 'source' in data:
