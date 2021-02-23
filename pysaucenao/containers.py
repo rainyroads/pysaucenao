@@ -102,6 +102,10 @@ class SauceNaoResults:
         if header['index_id'] in [9, 25, 26, 29]:
             return BooruSource(header, data)
 
+        # Twitter
+        if header['index_id'] == 41:
+            return TwitterSource(header, data)
+
         # Anime
         if header['index_id'] in [21, 22]:
             return AnimeSource(header, data, self._loop)
