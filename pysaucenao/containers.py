@@ -2,7 +2,6 @@ import asyncio
 import logging
 import reprlib
 import typing
-from datetime import datetime
 
 import aiohttp
 from aiohttp_proxy import ProxyConnector
@@ -12,6 +11,7 @@ from pysaucenao.errors import SauceNaoException
 TYPE_GENERIC    = 'generic'
 TYPE_PIXIV      = 'pixiv'
 TYPE_BOORU      = 'booru'
+TYPE_TWITTER    = 'twitter'
 TYPE_VIDEO      = 'video'
 TYPE_ANIME      = 'anime'
 TYPE_MANGA      = 'manga'
@@ -305,7 +305,7 @@ class GenericSource:
             self.urls = data['ext_urls']
 
         if 'created_at' in data:
-            self.created_at = datetime.strptime(data['created_at'], r"%Y-%m-%dT%H:%M:%SZ")
+            self.created_at = data['created_at']
 
     def __repr__(self):
         rep = reprlib.Repr()
@@ -392,7 +392,7 @@ class TwitterSource(GenericSource):
 
     @property
     def type(self):
-        return TYPE_BOORU
+        return TYPE_TWITTER
 
     def _parse_data(self, data: dict):
         super()._parse_data(data)
