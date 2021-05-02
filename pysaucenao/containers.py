@@ -467,6 +467,7 @@ class AnimeSource(VideoSource):
         if self._ids is not None:
             return self._ids
 
+        self._ids = {}
         async with aiohttp.ClientSession(loop=self._loop, raise_for_status=True) as session:
             try:
                 response = await session.get(f"https://relations.yuna.moe/api/ids?source=anidb&id={self.data.get('anidb_aid')}")
@@ -479,8 +480,6 @@ class AnimeSource(VideoSource):
                 self._log.error(f'yuna.moe server is returning a {error.status} error code')
             except aiohttp.ClientError:
                 self._log.error('yuna.moe server appears to be down or is not responding to our requests')
-
-        self._ids = {}
 
     # ID getters
     @property
