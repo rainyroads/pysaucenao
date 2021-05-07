@@ -2,7 +2,6 @@ import asyncio
 import logging
 import reprlib
 import typing
-from datetime import datetime
 
 import aiohttp
 
@@ -236,7 +235,7 @@ class GenericSource:
         self.thumbnail:     typing.Optional[str] = None
         self.author_name:   typing.Optional[str] = None
         self.author_url:    typing.Optional[str] = None
-        self.created_at:    typing.Optional[datetime] = None
+        # self.created_at:    typing.Optional[datetime] = None
         self.title:         typing.Optional[str] = None
         self.url:           typing.Optional[str] = None
         self.urls:          typing.Optional[list] = None
@@ -303,8 +302,8 @@ class GenericSource:
             self.url = data['ext_urls'][0]
             self.urls = data['ext_urls']
 
-        if 'created_at' in data:
-            self.created_at = datetime.strptime(data['created_at'], r"%Y-%m-%dT%H:%M:%SZ")
+        # if 'created_at' in data:
+        #     self.created_at = datetime.strptime(data['created_at'], r"%Y-%m-%dT%H:%M:%SZ")
 
     def __repr__(self):
         rep = reprlib.Repr()
