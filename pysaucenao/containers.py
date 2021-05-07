@@ -472,7 +472,7 @@ class AnimeSource(VideoSource):
                 if response.status == 204:
                     self._log.info("yuna.moe lookup failed for this anime source")
                 else:
-                    self._ids = await response.json()
+                    self._ids = await response.json() or {}
                     return self._ids
             except aiohttp.ClientResponseError as error:
                 self._log.error(f'yuna.moe server is returning a {error.status} error code')
