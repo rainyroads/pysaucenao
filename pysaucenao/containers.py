@@ -2,8 +2,10 @@ import asyncio
 import logging
 import reprlib
 import typing
+from datetime import datetime
 
 import aiohttp
+from aiohttp_proxy import ProxyConnector
 
 from pysaucenao.errors import SauceNaoException
 
@@ -52,6 +54,11 @@ INDEXES = {
     '36': 'Madokami (Manga)',
     '37': 'MangaDex',
     '38': 'E-Hentai',
+    '39': 'ArtStation',
+    '40': 'FurAffinity',
+    '41': 'Twitter',
+    '42': 'Furry Network'
+
 }
 
 
@@ -93,8 +100,12 @@ class SauceNaoResults:
             return PixivSource(header, data)
 
         # Booru
-        if header['index_id'] in [9, 25, 26, 29]:
+        if header['index_id'] in [9, 12, 25, 26, 29]:
             return BooruSource(header, data)
+
+        # Twitter
+        if header['index_id'] == 41:
+            return TwitterSource(header, data)
 
         # Anime
         if header['index_id'] in [21, 22]:
@@ -105,7 +116,7 @@ class SauceNaoResults:
             return VideoSource(header, data)
 
         # Manga
-        if header['index_id'] in [0, 3, 16, 18, 36, 37]:
+        if header['index_id'] in [0, 3, 16, 18, 36, 37, 38]:
             return MangaSource(header, data)
 
         # Other
@@ -226,6 +237,7 @@ class GenericSource:
         self.thumbnail:     typing.Optional[str] = None
         self.author_name:   typing.Optional[str] = None
         self.author_url:    typing.Optional[str] = None
+        self.created_at:    typing.Optional[datetime] = None
         self.title:         typing.Optional[str] = None
         self.url:           typing.Optional[str] = None
         self.urls:          typing.Optional[list] = None
@@ -292,6 +304,9 @@ class GenericSource:
             self.url = data['ext_urls'][0]
             self.urls = data['ext_urls']
 
+        if 'created_at' in data:
+            self.created_at = datetime.strptime(data['created_at'], r"%Y-%m-%dT%H:%M:%SZ")
+
     def __repr__(self):
         rep = reprlib.Repr()
         return f"<GenericSource(title={rep.repr(self.title)}, author={rep.repr(self.author_name)}, source='{self.index}')>"
@@ -332,7 +347,7 @@ class BooruSource(GenericSource):
         """
         Return the linked source if available
         """
-        if 'source' in self.data and self.data['source']:
+        if self.data.get('source'):
             return self.data['source']
 
         return self.url
@@ -343,16 +358,51 @@ class BooruSource(GenericSource):
 
     def _parse_data(self, data: dict):
         super()._parse_data(data)
-        self.gelbooru_id = data.get("gelbooru_id")
-        self.danbooru_id = data.get("danbooru_id")
+        self.gelbooru_id = data.get('gelbooru_id')
+        self.danbooru_id = data.get('danbooru_id')
 
-        self.characters = data.get("characters")
+        self.characters = data.get('characters')
         if self.characters:
             self.characters = self.characters.replace(', ', ',').split(',')
 
         self.material = data.get('material')
         if self.material:
             self.material = self.material.replace(', ', ',').split(',')
+
+    def __repr__(self):
+        rep = reprlib.Repr()
+        return f"<GenericSource(title={rep.repr(self.title)}, author={rep.repr(self.author_name)}, source='{self.index}')>"
+
+
+class TwitterSource(GenericSource):
+    """
+    Twitter source
+    """
+
+    def __init__(self, header: dict, data: dict):
+        super().__init__(header, data)
+
+    @property
+    def source_url(self):
+        """
+        Return the first source link
+        """
+
+        return self.url
+
+    @property
+    def type(self):
+        return TYPE_BOORU
+
+    def _parse_data(self, data: dict):
+        super()._parse_data(data)
+
+        self.tweet_id: int = data['tweet_id']
+        self.twitter_user_id: int = data['twitter_user_id']
+        self.twitter_user_handle: str = data['twitter_user_handle']
+
+        self.author_name = self.twitter_user_handle
+        self.author_url = f'https://twitter.com/i/user/{self.twitter_user_id}'
 
     def __repr__(self):
         rep = reprlib.Repr()
@@ -417,6 +467,7 @@ class AnimeSource(VideoSource):
         if self._ids is not None:
             return self._ids
 
+        self._ids = {}
         async with aiohttp.ClientSession(loop=self._loop, raise_for_status=True) as session:
             try:
                 response = await session.get(f"https://relations.yuna.moe/api/ids?source=anidb&id={self.data.get('anidb_aid')}")
@@ -499,6 +550,7 @@ class MangaSource(GenericSource):
     def __init__(self, header: dict, data: dict):
 
         self.chapter:       typing.Optional[str] = None
+        self.author_name:   typing.Optional[str] = None
         super().__init__(header, data)
 
     @property
@@ -510,8 +562,14 @@ class MangaSource(GenericSource):
         if 'part' in data:
             self.chapter = data['part']
 
+        if 'eng_name' in data:
+            self.title = data['eng_name']
+        elif 'source' in data:
+            self.title = data['source']
+
         if 'author' in data:
             self.author_name = data['author']
+
         elif 'creator' in data:
             self.author_name = data['creator']
 
