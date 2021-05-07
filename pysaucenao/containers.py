@@ -5,7 +5,6 @@ import typing
 from datetime import datetime
 
 import aiohttp
-from aiohttp_proxy import ProxyConnector
 
 from pysaucenao.errors import SauceNaoException
 
@@ -481,7 +480,6 @@ class AnimeSource(VideoSource):
             except aiohttp.ClientError:
                 self._log.error('yuna.moe server appears to be down or is not responding to our requests')
 
-        self._ids = {}
         return self._ids
 
     # ID getters
