@@ -431,6 +431,7 @@ class AnimeSource(VideoSource):
                 self._log.error('yuna.moe server appears to be down or is not responding to our requests')
 
         self._ids = {}
+        return self._ids
 
     # ID getters
     @property
