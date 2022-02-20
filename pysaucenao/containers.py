@@ -289,7 +289,7 @@ class GenericSource:
             self.author_name = data['member_name']
         elif 'creator' in data:
             # May be multiple creators; we just parse the list into a comma-separated string
-            self.author_name = ', '.join(data['creator'])
+            self.author_name = ', '.join(data['creator']) if isinstance(data['creator'], list) else data['creator']
         elif 'author_name' in data:
             self.author_name = data['author_name']
 
