@@ -290,6 +290,8 @@ class GenericSource:
         elif 'creator' in data:
             # May be multiple creators; we just grab the first in this scenario
             self.author_name = data['creator'][0] if isinstance(data['creator'], list) else data['creator']
+        elif 'author_name' in data:
+            self.author_name = data['author_name']
 
         # Same story, different comment line
         if 'author_url' in data:
