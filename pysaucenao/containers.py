@@ -570,7 +570,7 @@ class MangaSource(GenericSource):
             self.author_name = data['author']
 
         elif 'creator' in data:
-            self.author_name = ', '.join(data['creator']) if isinstance(data['creator'], list) else data['creator']
+            self.author_name = data['creator'][0] if isinstance(data['creator'], list) else data['creator']
 
     def __repr__(self):
         rep = reprlib.Repr()
