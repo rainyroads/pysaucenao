@@ -288,15 +288,18 @@ class GenericSource:
         # Like above, author name can come from multiple fields
         if 'member_name' in data:
             self.author_name = data['member_name']
+            self.authors = [data['member_name']]
         elif 'creator' in data:
             # May be multiple creators; we just grab the first in this scenario. All are stored in authors
             if isinstance(data['creator'], list):
-                self.authors = data['creator']
                 self.author_name = data['creator'][0]
+                self.authors = data['creator']
             else:
                 self.author_name = data['creator']
+                self.authors = [data['creator']]
         elif 'author_name' in data:
             self.author_name = data['author_name']
+            self.authors = [data['author_name']]
 
         # Same story, different comment line
         if 'author_url' in data:
@@ -572,13 +575,15 @@ class MangaSource(GenericSource):
 
         if 'author' in data:
             self.author_name = data['author']
+            self.authors = [data['author']]
 
         elif 'creator' in data:
             if isinstance(data['creator'], list):
-                self.authors = data['creator']
                 self.author_name = data['creator'][0]
+                self.authors = data['creator']
             else:
                 self.author_name = data['creator']
+                self.authors = [data['creator']]
 
     def __repr__(self):
         rep = reprlib.Repr()
