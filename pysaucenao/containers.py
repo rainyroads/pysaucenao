@@ -554,7 +554,6 @@ class MangaSource(GenericSource):
     def __init__(self, header: dict, data: dict):
 
         self.chapter:       typing.Optional[str] = None
-        self.author_name:   typing.Optional[str] = None
         super().__init__(header, data)
 
     @property
