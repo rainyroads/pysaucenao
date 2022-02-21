@@ -235,6 +235,7 @@ class GenericSource:
         self.thumbnail:     typing.Optional[str] = None
         self.author_name:   typing.Optional[str] = None
         self.author_url:    typing.Optional[str] = None
+        self.authors:       typing.Optional[list] = None
         # self.created_at:    typing.Optional[datetime] = None
         self.title:         typing.Optional[str] = None
         self.url:           typing.Optional[str] = None
@@ -288,8 +289,12 @@ class GenericSource:
         if 'member_name' in data:
             self.author_name = data['member_name']
         elif 'creator' in data:
-            # May be multiple creators; we just grab the first in this scenario
-            self.author_name = data['creator'][0] if isinstance(data['creator'], list) else data['creator']
+            # May be multiple creators; we just grab the first in this scenario. All are stored in authors
+            if isinstance(data['creator'], list):
+                self.authors = data['creator']
+                self.author_name = data['creator'][0]
+            else:
+                self.author_name = data['creator']
         elif 'author_name' in data:
             self.author_name = data['author_name']
 
@@ -570,7 +575,11 @@ class MangaSource(GenericSource):
             self.author_name = data['author']
 
         elif 'creator' in data:
-            self.author_name = data['creator'][0] if isinstance(data['creator'], list) else data['creator']
+            if isinstance(data['creator'], list):
+                self.authors = data['creator']
+                self.author_name = data['creator'][0]
+            else:
+                self.author_name = data['creator']
 
     def __repr__(self):
         rep = reprlib.Repr()
