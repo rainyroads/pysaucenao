@@ -235,6 +235,7 @@ class GenericSource:
         self.thumbnail:     typing.Optional[str] = None
         self.author_name:   typing.Optional[str] = None
         self.author_url:    typing.Optional[str] = None
+        self.authors:       typing.Optional[list] = None
         # self.created_at:    typing.Optional[datetime] = None
         self.title:         typing.Optional[str] = None
         self.url:           typing.Optional[str] = None
@@ -287,9 +288,18 @@ class GenericSource:
         # Like above, author name can come from multiple fields
         if 'member_name' in data:
             self.author_name = data['member_name']
+            self.authors = [data['member_name']]
         elif 'creator' in data:
-            # May be multiple creators; we just grab the first in this scenario
-            self.author_name = data['creator'][0] if isinstance(data['creator'], list) else data['creator']
+            # May be multiple creators; we just grab the first in this scenario. All are stored in authors
+            if isinstance(data['creator'], list):
+                self.author_name = data['creator'][0]
+                self.authors = data['creator']
+            else:
+                self.author_name = data['creator']
+                self.authors = [data['creator']]
+        elif 'author_name' in data:
+            self.author_name = data['author_name']
+            self.authors = [data['author_name']]
 
         # Same story, different comment line
         if 'author_url' in data:
@@ -547,7 +557,6 @@ class MangaSource(GenericSource):
     def __init__(self, header: dict, data: dict):
 
         self.chapter:       typing.Optional[str] = None
-        self.author_name:   typing.Optional[str] = None
         super().__init__(header, data)
 
     @property
@@ -566,9 +575,15 @@ class MangaSource(GenericSource):
 
         if 'author' in data:
             self.author_name = data['author']
+            self.authors = [data['author']]
 
         elif 'creator' in data:
-            self.author_name = data['creator']
+            if isinstance(data['creator'], list):
+                self.author_name = data['creator'][0]
+                self.authors = data['creator']
+            else:
+                self.author_name = data['creator']
+                self.authors = [data['creator']]
 
     def __repr__(self):
         rep = reprlib.Repr()
