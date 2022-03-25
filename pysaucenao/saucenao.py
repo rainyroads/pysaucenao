@@ -1,6 +1,8 @@
 import io
 from typing import *
 
+from aiohttp_proxy import ProxyConnector
+
 from pysaucenao.containers import *
 from pysaucenao.errors import *
 
