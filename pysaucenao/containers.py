@@ -55,7 +55,8 @@ INDEXES = {
     '39': 'ArtStation',
     '40': 'FurAffinity',
     '41': 'Twitter',
-    '42': 'Furry Network'
+    '42': 'Furry Network',
+    '43': 'Fanbox'
 
 }
 
@@ -400,7 +401,7 @@ class TwitterSource(GenericSource):
 
     @property
     def type(self):
-        return TYPE_BOORU
+        return TYPE_GENERIC
 
     def _parse_data(self, data: dict):
         super()._parse_data(data)
